@@ -1,2 +1,5 @@
 cryptography
 pycryptodome
+flask
+flask-wtf
+bootstrap-flask

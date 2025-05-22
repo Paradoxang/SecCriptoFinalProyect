@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}AES{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Cifrado Simétrico (AES)</h2>
+
+        <!-- Paso 1: Generar Clave -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Paso 1: Generar Clave AES</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('aes') }}">
+                    <div class="mb-3">
+                        <label for="bits" class="form-label">Tamaño de la Clave (bits)</label>
+                        <select class="form-select" id="bits" name="bits">
+                            <option value="128">128 bits</option>
+                            <option value="192">192 bits</option>
+                            <option value="256" selected>256 bits</option>
+                        </select>
+                    </div>
+                    <input type="hidden" name="action" value="generate_key">
+                    <button type="submit" class="btn btn-primary">Generar y Descargar Clave</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Paso 2: Ingresar Texto -->
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h3 class="mb-0">Paso 2: Ingresar Texto</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('aes') }}">
+                    <div class="mb-3">
+                        <label for="plaintext" class="form-label">Texto a Cifrar</label>
+                        <textarea class="form-control" id="plaintext" name="plaintext" rows="4" placeholder="Ingrese el texto que desea cifrar..." required></textarea>
+                    </div>
+                    <input type="hidden" name="action" value="save_text">
+                    <button type="submit" class="btn btn-success">Guardar y Descargar Texto</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Paso 3: Cifrar Texto -->
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+                <h3 class="mb-0">Paso 3: Cifrar Texto</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('aes') }}" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="text_file" class="form-label">Archivo de Texto</label>
+                        <input type="file" class="form-control" id="text_file" name="file" required>
+                        <div class="form-text">Seleccione el archivo de texto que descargó en el paso 2</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="key_file" class="form-label">Archivo de Clave</label>
+                        <input type="file" class="form-control" id="key_file" name="key" required>
+                        <div class="form-text">Seleccione el archivo de clave que descargó en el paso 1</div>
+                    </div>
+                    <input type="hidden" name="action" value="encrypt">
+                    <button type="submit" class="btn btn-info">Cifrar y Descargar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Paso 4: Descifrar Texto -->
+        <div class="card mb-4">
+            <div class="card-header bg-warning text-dark">
+                <h3 class="mb-0">Paso 4: Descifrar Texto</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('aes') }}" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="encrypted_file" class="form-label">Archivo Cifrado</label>
+                        <input type="file" class="form-control" id="encrypted_file" name="file" required>
+                        <div class="form-text">Seleccione el archivo cifrado que descargó en el paso 3</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="key_file_decrypt" class="form-label">Archivo de Clave</label>
+                        <input type="file" class="form-control" id="key_file_decrypt" name="key" required>
+                        <div class="form-text">Seleccione el archivo de clave que descargó en el paso 1</div>
+                    </div>
+                    <input type="hidden" name="action" value="decrypt">
+                    <button type="submit" class="btn btn-warning">Descifrar y Descargar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Resultados -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="card mb-4">
+                    <div class="card-header bg-light">
+                        <h3 class="mb-0">Resultados</h3>
+                    </div>
+                    <div class="card-body">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1>Bienvenido al Sistema de Criptografía</h1>
+        <p class="lead">Este sistema te permite explorar diferentes aspectos de la criptografía moderna:</p>
+        
+        <div class="row mt-4">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Cifrado Simétrico (AES)</h5>
+                        <p class="card-text">Implementación del algoritmo AES para cifrado y descifrado de archivos usando una clave secreta.</p>
+                        <a href="{{ url_for('aes') }}" class="btn btn-primary">Ir a AES</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Cifrado Asimétrico (RSA)</h5>
+                        <p class="card-text">Sistema de cifrado usando par de claves pública/privada para mensajes cortos.</p>
+                        <a href="{{ url_for('rsa') }}" class="btn btn-primary">Ir a RSA</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Firma Digital</h5>
+                        <p class="card-text">Sistema de firma digital para verificar la autenticidad e integridad de archivos.</p>
+                        <a href="{{ url_for('firma') }}" class="btn btn-primary">Ir a Firma Digital</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Funciones Hash</h5>
+                        <p class="card-text">Cálculo y verificación de hashes SHA-256 para comprobar la integridad de archivos.</p>
+                        <a href="{{ url_for('hash') }}" class="btn btn-primary">Ir a Hash</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

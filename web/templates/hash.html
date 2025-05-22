@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Hash{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Funciones Hash (SHA-256)</h2>
+        
+        <div class="form-section">
+            <h3>Calcular Hash de Archivo</h3>
+            <form method="post" enctype="multipart/form-data" class="mb-4">
+                <input type="hidden" name="action" value="calculate">
+                <div class="mb-3">
+                    <label for="file" class="form-label">Archivo</label>
+                    <input type="file" name="file" id="file" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Calcular Hash</button>
+            </form>
+        </div>
+
+        <div class="form-section">
+            <h3>Verificar Integridad</h3>
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" name="action" value="verify">
+                <div class="mb-3">
+                    <label for="file" class="form-label">Archivo a Verificar</label>
+                    <input type="file" name="file" id="file" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="hash" class="form-label">Archivo de Hash</label>
+                    <input type="file" name="hash" id="hash" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Verificar Integridad</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
